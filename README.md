@@ -20,7 +20,7 @@ version is **4.3.11**.
 02. Clone the repository:
 
     ```console
-    git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+    git clone --recursive https://github.com/mchataigner/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
     ```
 
     <details>
@@ -72,6 +72,25 @@ version is **4.3.11**.
     ```
 
 05. Open a new Zsh terminal window or tab.
+
+06. All
+
+    ```console
+    git clone --recursive https://github.com/mchataigner/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+    setopt EXTENDED_GLOB
+    for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+      ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+    done
+    chsh -s /bin/zsh
+    ```
+
+### [Fig](https://fig.io)
+
+Fig adds apps, shortcuts, and autocomplete to your existing terminal.
+
+Install `prezto` in just one click.
+
+<a href="https://fig.io/plugins/other/prezto" target="_blank"><img src="https://fig.io/badges/install-with-fig.svg" /></a>
 
 ### Troubleshooting
 
