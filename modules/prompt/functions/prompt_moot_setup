@@ -13,7 +13,27 @@
 #   http://i.imgur.com/gLgVp6Y.png
 #
 
+# Characters
+SEGMENT_SEPARATOR="\ue0b0"
+PLUSMINUS="\u00b1"
+BRANCH="\ue0a0"
+DETACHED="\u27a6"
+CROSS="\u2718"
+LIGHTNING="\u26a1"
+GEAR="\u2699"
+
+prompt_status() {
+  local symbols
+  symbols=()
+  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}$CROSS"
+  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}$LIGHTNING"
+  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}$GEAR"
+
+  [[ -n "$symbols" ]] && echo " $symbols %f"
+}
+
 function prompt_moot_precmd {
+  RETVAL=$?
   # Get Git repository information.
   if (( $+functions[git-info] )); then
     git-info
@@ -71,7 +91,7 @@ function prompt_moot_setup {
   zstyle ':prezto:module:ruby:info:version' format '[%v]'
 
   # Define prompts.
-  PROMPT="${_prompt_moot_colors[3]}%n%f@${_prompt_moot_colors[2]}%m%f ${_prompt_moot_colors[5]}%~%f "'${git_info:+${(e)git_info[prompt]}}'"$ "
+  PROMPT="${_prompt_moot_colors[3]}%n%f@${_prompt_moot_colors[2]}%m%f ${_prompt_moot_colors[5]}%~%f "'${git_info:+${(e)git_info[prompt]}}'""'$(prompt_status)'"$ "
   RPROMPT='%F{blue}${ruby_info[version]}'
 }
 
